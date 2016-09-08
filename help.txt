@@ -1,0 +1,14 @@
+进入项目文件夹，运行：
+
+```
+npm insall
+
+gulp serve
+```
+
+需要安装：
+
+1. node 5.0版本
+2. yeoman
+3. bower
+4. gulp

@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="showRedBlueFunc()">全部显示</button>
+            <button type="button" class="btn btn-danger" ng-click="showRedFunc()">显示红球</button>
+            <button type="button" class="btn btn-primary" ng-click="showBlueFunc()">显示蓝球</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <!-- 显示全部球 -->
+        <table class="table table-bordered">
+            <!-- 红球 -->
+            <tr ng-repeat="item in historyList" ng-show="showRed || showAll">
+                <!-- $index ng-show ng-hide-->
+                <td ng-repeat="redball in redList">
+                    <!-- ng-class 后跟 CSS类名的［字符串］或［数组］ -->
+                    <!-- 这里是一个对象，通过 true / false 控制 class -->
+                    <span ng-class='{red_ball_tbl:isSelected({{redball}},{{item}},"redBall")}'>{{redball}}</span>
+                </td>
+            </tr>
+            <!-- 蓝球 -->
+            <tr ng-repeat="item in historyList" ng-show="!showRed || showAll">
+                <td ng-repeat='blueball in blueList'>
+                    <span ng-class='{blue_ball_tbl:isSelected({{blueball}},{{item}},"blueBall")}'>{{blueball}}</span>
+                </td>
+            </tr>
+        </table>
+        <!-- 只显示选中的球 -->
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in historyList">
+                <span>{{item.openDate}}</span>
+                <span ng-repeat="redball in redList" ng-show='isSelected({{redball}},{{item}},"redBall") && (showRed || showAll)' class="ball red_ball">{{redball}}</span>
+                <span ng-repeat='blueball in blueList' ng-show='isSelected({{blueball}},{{item}},"blueBall") && (!showRed || showAll)' class="ball blue_ball">{{blueball}}</span>
+            </li>
+        </ul>
+    </div>
+</div>

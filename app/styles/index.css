@@ -1,0 +1,7 @@
+#navbar-collapse-header a:hover {
+    background-color: #E7E7E7;
+}
+
+#navbar-collapse-header .active{
+    background-color: #E7E7E7;
+}

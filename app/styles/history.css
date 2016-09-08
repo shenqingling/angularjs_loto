@@ -1,0 +1,48 @@
+/*列表*/
+
+.container .list-group-item {
+    border: none;
+}
+
+
+/*选中球*/
+
+.red_ball_tbl {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: #E62A2A;
+}
+
+.blue_ball_tbl {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: #1479D7;
+}
+
+.ball {
+    margin: 5px;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 2px;
+}
+
+.red_ball {
+    color: #fff;
+    background-color: #E62A2A;
+}
+
+.blue_ball {
+    color: #fff;
+    background-color: #1479D7;
+}
