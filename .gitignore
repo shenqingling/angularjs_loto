@@ -36,6 +36,8 @@ jspm_packages
 .sass-cache
 app/bower_components
 
+app/.DS_Store
+
 # Optional npm cache directory
 .npm
 

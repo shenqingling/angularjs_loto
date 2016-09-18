@@ -111,7 +111,7 @@ angular.module('lotoApp')
         // 有3个参数，第三个是：deepWatch
         $scope.$watch('whichBall', watchFun);
     })
-    // 双色球机选（通过自定义指令实现）controller 
+    // 双色球机选（通过自定义指令实现） 
     .directive('chooseLoto', function() {
         return {
             restrict: 'AE',
@@ -119,11 +119,11 @@ angular.module('lotoApp')
             scope: {},
             replace: true,
             transclude: true,
-            controller: function($scope, $element, $attrs) {
+            controller: function($scope, $element, $attrs, $interval) {
                 // 判断通过什么方式应用指令
-                if($attrs.chooseLoto == undefined){
+                if ($attrs.chooseLoto == undefined) {
                     $scope.restrict = 'restrict = E';
-                }else{
+                } else {
                     $scope.restrict = 'restrict = A';
                 }
 
@@ -181,7 +181,8 @@ angular.module('lotoApp')
 
                         // 超时
                         if ($scope.isReady >= time) {
-                            clearInterval($scope.intval);
+                            // clearInterval($scope.intval);
+                            $interval.cancel($scope.intval);
                             $scope.whichBall = 'redBall' + $scope.next;
                             if ($scope.next === 8) {
                                 $scope.isStart = false;
@@ -191,8 +192,8 @@ angular.module('lotoApp')
                     };
 
                     // 每100ms更新输入框的值
-                    $scope.intval = setInterval(function() {
-                        $scope.$apply(updateball);
+                    $scope.intval = $interval(function() {
+                        updateball();
                         $scope.isReady = $scope.isReady + 100;
                     }, 100);
                     updateball();
