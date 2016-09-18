@@ -15,7 +15,7 @@ angular.module('lotoApp')
             'Karma'
         ];
     })
-    .controller('chooseCtrl', function($scope) {
+    .controller('chooseCtrl', function($scope, $interval) {
         // 变量初始化
         // 双色球
         $scope.balls = {};
@@ -69,7 +69,8 @@ angular.module('lotoApp')
 
                 // 超时
                 if ($scope.isReady >= time) {
-                    clearInterval($scope.intval);
+                    // clearInterval($scope.intval);
+                    $interval.cancel($scope.intval);
                     $scope.whichBall = 'redBall' + $scope.next;
                     if ($scope.next === 8) {
                         $scope.isStart = false;
@@ -79,11 +80,16 @@ angular.module('lotoApp')
             };
 
             // 每100ms更新输入框的值
-            $scope.intval = setInterval(function() {
-                $scope.$apply(updateball);
+            // $scope.intval = setInterval(function() {
+            //     $scope.$apply(updateball);
+            //     $scope.isReady = $scope.isReady + 100;
+            // }, 100);
+            $scope.intval = $interval(function() {
+                updateball();
                 $scope.isReady = $scope.isReady + 100;
             }, 100);
             updateball();
+
         };
 
         // 当自动执行至下一个文本框时执行
@@ -107,16 +113,35 @@ angular.module('lotoApp')
     .controller('historyCtrl', function($scope, $http) {
         $scope.showAll = true;
 
-        var url = '';
-        /*$http.get(url).success(function(data,status,headers,config){
+        /*var url = '';
+        $http.get(url).success(function(data,status,headers,config){
             $scope.historyList = data;
         })*/
+
+        var url = '../../data/data.txt';
+        $http.get(url).success(function(data, status, headers, config) {
+            var dataArr = data.split('\n');
+            $scope.historyList = [];
+            for (var i = 0; i < dataArr.length; i++) {
+                var ball = dataArr[i].split(',');
+                var item = {};
+                item['firstBall'] = ball[0];
+                item['sencondBall'] = ball[1];
+                item['thirdBall'] = ball[2];
+                item['fifthBall'] = ball[3];
+                item['fifthBall'] = ball[4];
+                item['sixBall'] = ball[5];
+                item['blueBall'] = ball[6];
+                $scope.historyList[i] = item;
+            }
+        });
+
         // 历史纪录 初始化
-        $scope.historyList = [
-            { openDate: '20160921', firstBall: 2, sencondBall: 3, thirdBall: 6, forthBall: 16, fifthBall: 17, sixBall: 26, blueBall: 8 },
-            { openDate: '20160915', firstBall: 4, sencondBall: 5, thirdBall: 9, forthBall: 16, fifthBall: 26, sixBall: 31, blueBall: 5 },
-            { openDate: '20160913', firstBall: 4, sencondBall: 9, thirdBall: 13, forthBall: 18, fifthBall: 20, sixBall: 28, blueBall: 10 }
-        ];
+        // $scope.historyList = [
+        //     { openDate: '20160921', firstBall: 2, sencondBall: 3, thirdBall: 6, forthBall: 16, fifthBall: 17, sixBall: 26, blueBall: 8 },
+        //     { openDate: '20160915', firstBall: 4, sencondBall: 5, thirdBall: 9, forthBall: 16, fifthBall: 26, sixBall: 31, blueBall: 5 },
+        //     { openDate: '20160913', firstBall: 4, sencondBall: 9, thirdBall: 13, forthBall: 18, fifthBall: 20, sixBall: 28, blueBall: 10 }
+        // ];
 
         // 红球初始化 33个
         $scope.redList = [];
