@@ -1,0 +1,10 @@
+#editor {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 200px;
+    padding: 10px;
+}
+
+button.editor-btn {
+    margin: 10px 0;
+}

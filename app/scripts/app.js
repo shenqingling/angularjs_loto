@@ -37,6 +37,11 @@ angular
         controller: 'historyCtrl',
         controllerAs: 'main'
       })
+      // 笔记本
+      .when('/view/notepad', {
+        templateUrl: 'views/notepad.html',
+        controllerAs: 'main'
+      })
       .otherwise({
         redirectTo: '/'
       });
