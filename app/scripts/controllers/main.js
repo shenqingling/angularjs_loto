@@ -61,28 +61,29 @@ angular.module('lotoApp')
                     // 设定篮球数字
                     $scope.balls[ball] = num;
                 }
-
-                // 超时
-                if ($scope.isReady >= time) {
-                    // clearInterval($scope.intval);
-                    $interval.cancel($scope.intval);
-                    $scope.whichBall = 'redBall' + $scope.next;
-                    if ($scope.next === 8) {
-                        $scope.isStart = false;
-                    }
-                    $scope.next++;
-                }
             };
 
-            // 每100ms更新输入框的值
-            // $scope.intval = setInterval(function() {
-            //     $scope.$apply(updateball);
-            //     $scope.isReady = $scope.isReady + 100;
-            // }, 100);
             $scope.intval = $interval(function() {
                 updateball();
                 $scope.isReady = $scope.isReady + 100;
             }, 100);
+
+            $scope.intval.then(function() {
+                console.log('success');
+            }, function() {
+                console.log('error');
+                if ($scope.next === 8) {
+                    $scope.isStart = false;
+                }
+                $scope.whichBall = 'redBall' + $scope.next;
+                $scope.next++;
+            }, function() {
+                console.log('notify');
+                if ($scope.isReady >= time) {
+                    $interval.cancel($scope.intval);
+                }
+            });
+
             updateball();
 
         };
